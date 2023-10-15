@@ -1,0 +1,38 @@
+.container {
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+.searchSection {
+  min-height: 20vh;
+  --min-grid: 200px;
+  --columns: 5;
+  padding-top: 3rem;
+  padding-right: 2rem;
+  display: grid;
+  gap: 1rem;
+
+  grid-template-columns: repeat(var(--columns), minmax(var(--min-grid), 1fr));
+}
+
+@media screen and (max-width: 1400px) {
+  .searchSection {
+    --columns: 4;
+    padding-right: 0;
+  }
+}
+
+@media screen and (max-width: 1130px) {
+  .searchSection {
+    --columns: 3;
+    justify-items: center;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .searchSection {
+    --columns: 2;
+    --min-grid: 160px;
+    gap: 1rem;
+  }
+}
