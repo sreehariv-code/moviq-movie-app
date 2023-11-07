@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./singlepage.css";
 
@@ -17,6 +17,7 @@ const SinglePage = () => {
   const imgUrl = "https://image.tmdb.org/t/p/original/";
 
   const { id } = useParams();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     getMovieData(id);
@@ -27,7 +28,6 @@ const SinglePage = () => {
   if (!movieDetails) {
     return null;
   }
-
   return (
     <div className="min-h-screen pb-[100px]">
       <div className="backdrop-header flex min-h-[200px] md:min-h-[400px] w-full bg-red-500 relative isolate aspect-[3.5/1] ">

@@ -15,9 +15,6 @@ const SearchPage = () => {
     handleSubmit(searchTerm, mediaType);
   };
 
-  console.log(mediaType)
-  console.log(searchTerm)
-
   return (
     <div className={styles.container}>
       <form action="" onSubmit={handleFormSubmit}>
