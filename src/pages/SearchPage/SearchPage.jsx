@@ -2,36 +2,37 @@ import React, { useEffect, useState } from "react";
 import Card from "../../components/Card/Card";
 import { FiSearch } from "react-icons/fi";
 import styles from "./Home.module.css";
+import axios from "axios";
 
 import { ContentContext } from "../../context/context";
 
 const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [mediaType, setMediaType] = useState("multi");
-  const { searchData, handleSubmit } = ContentContext();
+  const { handleSubmit } = ContentContext();
+  const [searchData, setSearchData] = useState([]);
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    handleSubmit(searchTerm, mediaType);
+    const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${
+      import.meta.env.VITE_API_KEY
+    }`;
+    try {
+      const response = await axios.get(
+        searchUrl + "&query=" + searchTerm + "&page=2"
+      );
+      setSearchData(response.data);
+    } catch (error) {
+      return error;
+    }
   };
+
+  console.log(searchData);
 
   return (
     <div className={styles.container}>
       <form action="" onSubmit={handleFormSubmit}>
         <div className="flex justify-between w-full h-full overflow-hidden rounded-full min-h-[50px] input-container relative">
-          <select
-            className="bg-slate-800 pl-5 px-1 md:px-5 md:text-[1em] min-w-[110px]"
-            name="media-type"
-            id="media"
-            value={mediaType}
-            onChange={(e) => {
-              setMediaType(e.target.value);
-            }}
-          >
-            <option value="multi">All</option>
-            <option value="movie">Movie</option>
-            <option value="tv">TV Shows</option>
-          </select>
           <input
             type="text"
             placeholder="Search..."
@@ -47,17 +48,7 @@ const SearchPage = () => {
         </div>
       </form>
 
-      <div className={styles.searchSection}>
-        {searchData.map((movie) => (
-          <Card
-            key={movie.id}
-            id={movie.id}
-            type={movie.media_type}
-            image={movie.poster_path || movie.profile_path}
-            title={movie.name || movie.title}
-          />
-        ))}
-      </div>
+      <div className={styles.searchSection}>{}</div>
     </div>
   );
 };
