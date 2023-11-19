@@ -2,64 +2,58 @@ import React, { useEffect, useState } from "react";
 import Card from "../../components/Card/Card";
 import { FiSearch } from "react-icons/fi";
 import styles from "./Home.module.css";
-
-import { ContentContext } from "../../context/context";
+import axios from "axios";
 
 const SearchPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [mediaType, setMediaType] = useState("multi");
-  const { searchData, handleSubmit } = ContentContext();
+  const [page, setPage] = useState(1);
+  const [searchData, setSearchData] = useState({ pages: 1, data: [] });
+  const [loading, setLoading] = useState(false);
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    handleSubmit(searchTerm, mediaType);
+    setLoading(true);
+    const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${import.meta.env.VITE_API_KEY
+      }`;
+    try {
+      const response = await axios.get(
+        `${searchUrl}&query=${searchTerm}&page=${page}`
+      );
+      setSearchData({ pages: response.data.page, data: response.data.results });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
   };
-
-  console.log(mediaType)
-  console.log(searchTerm)
 
   return (
     <div className={styles.container}>
       <form action="" onSubmit={handleFormSubmit}>
-        <div className="flex justify-between w-full h-full overflow-hidden rounded-full min-h-[50px] input-container relative">
-          <select
-            className="bg-slate-800 pl-5 px-1 md:px-5 md:text-[1em] min-w-[110px]"
-            name="media-type"
-            id="media"
-            value={mediaType}
-            onChange={(e) => {
-              setMediaType(e.target.value);
-            }}
-          >
-            <option value="multi">All</option>
-            <option value="movie">Movie</option>
-            <option value="tv">TV Shows</option>
-          </select>
+        <div className="max-w-[500px] flex gap-5">
           <input
             type="text"
             placeholder="Search..."
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="min-w-[100%] pl-5 min-h-full focus:border-none focus:outline-none"
+            className="min-w-[100%] pl-5 min-h-full focus:border-none focus:outline-none rounded-md"
           />
-          <button
-            className="p-1 min-w-[10%] aspect-square grid place-content-center bg-red-500 rounded-full absolute text-[20px] right-0 h-full"
-            type="submit"
-          >
-            <FiSearch />
+          <button className={`${styles.searchBtn} btn bg-primary lg:hover:bg-white search-btn`} type="submit">
+            <FiSearch fontSize={20} className={styles.searchIcon} />
           </button>
         </div>
       </form>
-
+      <div className="pt-5 mt-2 flex justify-between md:justify-start md:gap-[4rem] bg-background sticky top-[30px]">
+        <button disabled={page > 1 ? false : true} onClick={() => setPage(prevState => prevState - 1)} className="btn"> Previous </button>
+        <span>{page}</span>
+        <button className="btn" onClick={() => setPage(prevState => prevState + 1)}>Next</button>
+      </div>
       <div className={styles.searchSection}>
-        {searchData.map((movie) => (
-          <Card
-            key={movie.id}
-            id={movie.id}
-            type={movie.media_type}
-            image={movie.poster_path || movie.profile_path}
-            title={movie.name || movie.title}
-          />
-        ))}
+        {loading ? <p>Loading...</p> : null}
+        {searchData.data.length > 0 &&
+          searchData.data.map((data, index) =>
+            <Card key={index} id={data.id} image={data.poster_path} title={data.title} type="movie" />
+          )
+        }
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ const Carousel = ({ data }) => {
   return (
     <div className="swiper-container min-h-[300px] flex ">
       <Swiper
-        className="mySwiper min-h-[300px]"
+        className="mySwiper min-h-[300px] mx-6"
         navigation={true}
         modules={[Navigation]}
         height={300}
