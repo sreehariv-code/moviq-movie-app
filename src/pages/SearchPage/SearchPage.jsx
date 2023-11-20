@@ -19,7 +19,7 @@ const SearchPage = () => {
     }`;
     try {
       const response = await axios.get(
-        searchUrl + "&query=" + searchTerm + "&page=2"
+        searchUrl + "&query=" + searchTerm + "&page=1"
       );
       setSearchData(response.data);
     } catch (error) {
@@ -48,7 +48,16 @@ const SearchPage = () => {
         </div>
       </form>
 
-      <div className={styles.searchSection}>{}</div>
+      <div className={styles.searchSection}>
+        {searchData.results.map((data) => (
+          <Card
+            key={data.id}
+            image={data.poster_path}
+            title={data.title}
+            id={data.id}
+          />
+        ))}
+      </div>
     </div>
   );
 };
