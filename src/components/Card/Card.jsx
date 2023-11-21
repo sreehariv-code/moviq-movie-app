@@ -5,7 +5,7 @@ import imageNotFound from "../../assets/clapperborad.jpg";
 
 const Card = ({ id, image, title, type }) => {
   let imgUrl;
-  if (image !== undefined) {
+  if (image !== undefined || image !== null) {
     imgUrl = `https://image.tmdb.org/t/p/original/${image}`;
   } else {
     imgUrl = imageNotFound;

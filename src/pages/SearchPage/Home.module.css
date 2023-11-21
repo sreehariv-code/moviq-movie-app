@@ -36,3 +36,15 @@
     gap: 1rem;
   }
 }
+
+/* Occur only in large devices */
+
+@media screen and (min-width: 1280px) {
+  .searchIcon {
+    transition: stroke 0.25s ease-in;
+  }
+
+  .searchBtn:hover .searchIcon {
+    stroke: #641ae6;
+  }
+}

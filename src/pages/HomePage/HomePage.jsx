@@ -14,9 +14,9 @@ const HomePage = () => {
           <p className=" text-[90px] font-semibold  md:text-[12vw]">MovieQ</p>
           <Link
             to="/search"
-            className="self-center bg-red-500 border-none rounded-full outline-none cursor-pointer w-28 md:w-[12vw] scale-125 group/discover-button btn hover:bg-white hover:text-red-500"
+            className="self-center bg-primary border-none rounded-full outline-none cursor-pointer w-28 md:w-[12vw]  group/discover-button btn hover:bg-white hover:text-primary"
           >
-            <span className="group-hover/discover-button:text-red-500">
+            <span className="group-hover/discover-button:text-primary">
               Discover
             </span>
           </Link>
