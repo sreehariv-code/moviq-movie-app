@@ -25,15 +25,13 @@ const SearchPage = () => {
     if (searchTerm !== "") {
       const debounceTimeout = setTimeout(() => {
         const fetchData = async () => {
-          const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${
-            import.meta.env.VITE_API_KEY
-          }`;
+          const searchUrl = `https://api.themoviedb.org/3/search/movie?api_key=${import.meta.env.VITE_API_KEY
+            }`;
 
           try {
             const response = await axios.get(
               `${searchUrl}&query=${searchTerm}&page=${page}`
             );
-            console.log(response.data);
             setSearchData({
               ...searchData,
               pages: response.data.page,
@@ -52,6 +50,12 @@ const SearchPage = () => {
 
       // Cleanup the timeout on each input change
       return () => clearTimeout(debounceTimeout);
+    } else {
+      setSearchData({
+        pages: 1,
+        data: [],
+        totalPages: 0
+      })
     }
   }, [searchTerm, page]); // Trigger the effect on changes to searchTerm and page
 
@@ -67,7 +71,7 @@ const SearchPage = () => {
           />
         </div>
       </form>
-      <div className="pt-5 mt-2 flex justify-between md:justify-start md:gap-[4rem] bg-background sticky top-[30px]">
+      <div className="pt-5 mt-2 flex justify-between md:justify-start md:gap-[4rem] bg-background  w-full z-10">
         <button
           disabled={page > 1 ? false : true}
           onClick={() => setPage((prevState) => prevState - 1)}
@@ -86,18 +90,20 @@ const SearchPage = () => {
           Next
         </button>
       </div>
-      <div className={styles.searchSection}>
-        {loading ? <p>Loading...</p> : null}
-        {searchData.data.length > 0 &&
-          searchData.data.map((data, index) => (
-            <Card
-              key={index}
-              id={data.id}
-              image={data.poster_path}
-              title={data.title}
-              type="movie"
-            />
-          ))}
+      <div className="grid-wrapper pb-10">
+        <div className={[styles.searchSection]}>
+          {loading ? <p>Loading...</p> : null}
+          {searchData.data.length > 0 &&
+            searchData.data.map((data, index) => (
+              <Card
+                key={index}
+                id={data.id}
+                image={data.poster_path}
+                title={data.title}
+                type="movie"
+              />
+            ))}
+        </div>
       </div>
     </div>
   );

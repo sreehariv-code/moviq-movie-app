@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./singlepage.css";
 
-import { ContentContext } from "../../context/context";
 import { Navigation } from "swiper";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
+import { Swiper, SwiperSlide } from "swiper/react";
+import notimagefound from "../../assets/nomoviefound.png";
 import star from "../../assets/rating-star.png";
 import CastCard from "../../components/Card/CastCard";
-import notimagefound from "../../assets/nomoviefound.png";
+import { ContentContext } from "../../context/context";
 
 const SinglePage = () => {
   const { getMovieData, movieData } = ContentContext();
@@ -39,8 +39,8 @@ const SinglePage = () => {
         )}
       </div>
 
-      <div className="movie-content sm:pl-10 flex flex-col items-center sm:items-start md:min-h-[60vh] sm:flex-row relative">
-        <div className="poster-img flex max-w-[180px] sm:max-w-[300px] overflow-hidden relative rounded-[11px] mt-[-10%] ml-4 isolate">
+      <div className="movie-content sm:pl-10 flex flex-col items-center sm:items-start md:min-h-[60vh] sm:flex-row relative max-w-[80%] mx-auto">
+        <div className="poster-img flex max-w-[180px] sm:max-w-[300px] overflow-hidden relative rounded-[11px] mt-[-200px] ml-4 isolate shadow-[0_0_60px_15px_rgba(0,0,0,0.7)] ">
           <img
             className="z-1"
             src={
@@ -50,7 +50,7 @@ const SinglePage = () => {
             }
             alt="poster Image"
           />
-          <div className="rating-stars z-10 absolute bottom-0 right-0 rounded-tl-[0.5rem]  bg-gradient-to-tr from-background to-transparent p-1">
+          <div className="rating-stars z-10 absolute bottom-0 right-0 rounded-tl-[0.5rem]   bg-gradient-to-tr from-background to-transparent p-1">
             <p className="flex items-center justify-center font-semibold tracking-widest rating">
               <img src={star} alt="" width={40} height={40} />
               <span className="">
@@ -61,14 +61,14 @@ const SinglePage = () => {
             </p>
           </div>
         </div>
-        <div className="content px-3 md:px-0 md:ml-5 md:max-w-[80%] ">
+        <div className="content px-3 md:px-0 md:ml-10 md:max-w-[80%] ">
           <div className="flex justify-center content-head md:justify-start ">
             <h1 className="text-[1.2rem] mt-5 sm:text-[2rem] text-center md:text-justify font-bold">
               {movieDetails.title}
             </h1>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-3 p-4 mt-4 genre md:justify-start ">
+          <div className="flex flex-wrap justify-center gap-3 mt-4 genre md:justify-start ">
             {movieDetails.genres &&
               movieDetails.genres.map((genre) => {
                 return (
@@ -98,15 +98,15 @@ const SinglePage = () => {
             </p>
           </div>
           <div className="mt-8 overview-section">
-            <h2 className="text-[30px] font-semibold">Overview</h2>
-            <p className="text-justify sm:text-left w-full md:w-[90%] lg:w-[70%] mt-5 tracking-widest leading-7">
+            <h2 className="text-4xl font-semibold">Overview</h2>
+            <p className="text-justify sm:text-left w-full md:w-[90%] text-xl lg:w-[70%] mt-5 tracking-widest leading-9 text-text/75">
               {movieDetails.overview}
             </p>
           </div>
         </div>
       </div>
-      <div className="pt-5 mt-2 cast-carousel ">
-        <h1 className="text-[2em] font-semibold mb-7">Casts</h1>
+      <div className="pt-5 mt-2 cast-carousel max-w-[80%] mx-auto">
+        <h1 className="text-2xl font-semibold mb-7">Casts</h1>
         {cast.length === 0 ? (
           <p>No Information found</p>
         ) : (
@@ -149,12 +149,12 @@ const SinglePage = () => {
         )}
       </div>
 
-      <div className="pt-5 mt-2 crew-carousel ">
+      <div className="pt-5 mt-2 crew-carousel max-w-[80%] mx-auto">
         <h1 className="text-[2em] font-semibold mb-7">Crew</h1>
         {crew.length === 0 ? (
           <p>No information found</p>
         ) : (
-          <div className="flex swiper-container ">
+          <div className="relative flex swiper-container ">
             <Swiper
               className="mySwiper min-h-[300px] px-14"
               navigation={true}
