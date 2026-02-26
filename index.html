@@ -1,13 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/favicon-large.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Moviq | Movie Searching DB</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/favicon-large.png" />
+  <link rel="apple-touch-icon" href="/pwa-192x192.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f0f0f" />
+  <meta name="description"
+    content="Moviq - The ultimate movie and TV show discovery platform. Search, explore trending content, and manage your watchlist with ease." />
+  <meta name="keywords" content="movies, tv shows, cinema, streaming, database, watchlist, trending movies" />
+  <meta name="author" content="Moviq" />
+
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Moviq" />
+
+  <!-- Resource Hints -->
+  <link rel="preconnect" href="https://image.tmdb.org">
+  <link rel="dns-prefetch" href="https://image.tmdb.org">
+
+  <!-- Google Fonts - Roboto -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+    rel="stylesheet">
+
+  <title>Moviq | Movie Searching DB</title>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
 </html>
